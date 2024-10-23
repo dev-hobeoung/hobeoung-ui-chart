@@ -3,51 +3,51 @@ import React, { useRef, useEffect } from 'react';
 import * as d3 from 'd3';
 
 export interface HeatMapProps {
-    numRows: number;
-    numCols: number;
-    data: number[][];
-    backgroundColor?: string;
-    width?: number;
-    height?: number;
-    xAxisLabel?: string;
-    yAxisLabel?: string;
-    xAxisLabelStyle?: {
-      fontSize?: string;
-      fontColor?: string;
-    };
-    yAxisLabelStyle?: {
-      fontSize?: string;
-      fontColor?: string;
-    };
-    margin?: { top: number, right: number, bottom: number, left: number };
+  numRows: number;
+  numCols: number;
+  data: number[][];
+  backgroundColor?: string;
+  width?: number;
+  height?: number;
+  xAxisLabel?: string;
+  yAxisLabel?: string;
+  xAxisLabelStyle?: {
+    fontSize?: string;
+    fontColor?: string;
+  };
+  yAxisLabelStyle?: {
+    fontSize?: string;
+    fontColor?: string;
+  };
+  margin?: { top: number, right: number, bottom: number, left: number };
 }
 
 export const HeatmapExample: React.FC = () => {
-    return (
-        <Heatmap 
-          numRows={10} 
-          numCols={10} 
-          data={[[10, 10, 20, 30], [10, 20, 30, 40]]}
-          xAxisLabel='가나다'
-          yAxisLabel='라마바'
-        />
-    );
+  return (
+    <Heatmap
+      numRows={10}
+      numCols={10}
+      data={[[10, 10, 20, 30], [10, 20, 30, 40]]}
+      xAxisLabel='가나다'
+      yAxisLabel='라마바'
+    />
+  );
 }
 
-export const Heatmap: React.FC<HeatMapProps> = ({ 
-  numRows, 
-  numCols, 
-  data, 
-  backgroundColor, 
+export const Heatmap: React.FC<HeatMapProps> = ({
+  numRows,
+  numCols,
+  data,
+  backgroundColor,
   width = 600,
   height = 600,
-  xAxisLabel, 
+  xAxisLabel,
   yAxisLabel,
   xAxisLabelStyle,
   yAxisLabelStyle,
-  margin = { top: 30, right: 30, bottom: 80, left: 80 } 
+  margin = { top: 30, right: 30, bottom: 80, left: 80 }
 }) => {
-    const svgRef = useRef<SVGSVGElement | null>(null);
+  const svgRef = useRef<SVGSVGElement | null>(null);
 
   useEffect(() => {
     if (!svgRef.current) return;
@@ -194,5 +194,5 @@ export const Heatmap: React.FC<HeatMapProps> = ({
     };
   }, [numRows, numCols, data]);
 
-  return <svg ref={svgRef}></svg>;    
+  return <svg ref={svgRef}></svg>;
 };
