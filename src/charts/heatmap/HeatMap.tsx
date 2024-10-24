@@ -24,13 +24,21 @@ export interface HeatMapProps {
 
 export const HeatmapExample: React.FC = () => {
   return (
-    <Heatmap
-      numRows={10}
-      numCols={10}
-      data={[[10, 10, 20, 30], [10, 20, 30, 40]]}
-      xAxisLabel='가나다'
-      yAxisLabel='라마바'
-    />
+    <div>
+      <div>
+        <span>가나다</span>
+      </div>
+      <div>
+        <Heatmap
+          numRows={10}
+          numCols={10}
+          data={[[10, 10, 10, 10], [10, 10, 10, 10]]}
+          backgroundColor='#ffffff'
+          xAxisLabel='가나다'
+          yAxisLabel='라마바'
+        />
+      </div>
+    </div>
   );
 }
 
@@ -59,12 +67,14 @@ export const Heatmap: React.FC<HeatMapProps> = ({
     const xScaleBand = d3.scaleBand()
       .range([0, chartWidth])
       .domain(d3.range(numCols).map(String))
-      .padding(0.05);
+      .paddingInner(0.01)
+      .paddingOuter(0);
 
     const yScaleBand = d3.scaleBand()
       .range([chartHeight, 0])
       .domain(d3.range(numRows).map(String))
-      .padding(0.05);
+      .paddingInner(0.01)
+      .paddingOuter(0);
 
     const xScaleLinear = d3.scaleLinear()
       .domain([0, numCols])
@@ -156,13 +166,19 @@ export const Heatmap: React.FC<HeatMapProps> = ({
     svg.append('g')
       .attr('transform', `translate(0,${chartHeight})`)
       .call(d3.axisBottom(xScaleLinear).tickSize(10).tickPadding(10))
-      .selectAll('line')
+      .select('.domain')  // 도메인 라인 선택
+      .remove();  // 도메인 라인 제거
+
+    svg.selectAll('g.axis-bottom g.tick line')  // 틱 라인 스타일 적용
       .attr('stroke', 'lightgray');
 
     // Draw Y axis with ticks
     svg.append('g')
       .call(d3.axisLeft(yScaleLinear).tickSize(10).tickPadding(10))
-      .selectAll('line')
+      .select('.domain')  // 도메인 라인 선택
+      .remove();  // 도메인 라인 제거
+
+    svg.selectAll('g.axis-left g.tick line')  // 틱 라인 스타일 적용
       .attr('stroke', 'lightgray');
 
     // X axis label

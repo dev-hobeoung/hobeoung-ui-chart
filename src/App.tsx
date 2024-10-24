@@ -2,11 +2,8 @@ import './App.css'
 import { HeatmapExample } from './charts/heatmap/HeatMap'
 
 function App() {
-  const a = 1
-
   return (
-    <div>
-      {a}
+    <div className="w-[100vw] h-[100vh]">
       <HeatmapExample />
     </div>
   )
