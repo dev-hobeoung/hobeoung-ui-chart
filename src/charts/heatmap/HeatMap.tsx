@@ -20,6 +20,8 @@ export interface HeatMapProps {
     fontColor?: string;
   };
   margin?: { top: number, right: number, bottom: number, left: number };
+  scaleRange?: number[];
+  scaleColor?: string[];
 }
 
 export const HeatmapExample: React.FC = () => {
@@ -30,9 +32,11 @@ export const HeatmapExample: React.FC = () => {
       </div>
       <div>
         <Heatmap
+          width={600}
+          height={300}
           numRows={10}
           numCols={10}
-          data={[[10, 10, 10, 10], [10, 10, 10, 10]]}
+          data={[[10, 20, 30, 40], [50, 60, 70, 80]]}
           backgroundColor='#ffffff'
           xAxisLabel='가나다'
           yAxisLabel='라마바'
@@ -53,7 +57,9 @@ export const Heatmap: React.FC<HeatMapProps> = ({
   yAxisLabel,
   xAxisLabelStyle,
   yAxisLabelStyle,
-  margin = { top: 30, right: 30, bottom: 80, left: 80 }
+  margin = { top: 30, right: 30, bottom: 80, left: 80 },
+  scaleRange = [0, 100],
+  scaleColor = ['#ffffff', '#ff0000'],
 }) => {
   const svgRef = useRef<SVGSVGElement | null>(null);
 
@@ -67,13 +73,13 @@ export const Heatmap: React.FC<HeatMapProps> = ({
     const xScaleBand = d3.scaleBand()
       .range([0, chartWidth])
       .domain(d3.range(numCols).map(String))
-      .paddingInner(0.01)
+      .paddingInner(0.020)
       .paddingOuter(0);
 
     const yScaleBand = d3.scaleBand()
       .range([chartHeight, 0])
       .domain(d3.range(numRows).map(String))
-      .paddingInner(0.01)
+      .paddingInner(0.020)
       .paddingOuter(0);
 
     const xScaleLinear = d3.scaleLinear()
@@ -85,8 +91,7 @@ export const Heatmap: React.FC<HeatMapProps> = ({
       .range([chartHeight, 0]);
 
     // Color scale
-    const colorScale = d3.scaleSequential(d3.interpolateInferno)
-      .domain([0, 100]);
+    const colorScale = d3.scaleLinear(scaleRange, scaleColor)
 
     // Create SVG
     const svg = d3.select(svgRef.current)
