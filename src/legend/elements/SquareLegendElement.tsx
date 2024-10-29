@@ -3,7 +3,7 @@ import { legendElementVariants } from "../../Types";
 import { cn } from "../../utils/StyleUtils";
 
 export interface SquareLegendElementProps extends VariantProps<typeof legendElementVariants> {
-  label: string;
+  label?: string;
 }
 
 export const SquareLegendElement: React.FC<SquareLegendElementProps> = ({ label, variant }: SquareLegendElementProps) => {

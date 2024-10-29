@@ -5,13 +5,13 @@ function App() {
   return (
     <div className="w-[100vw] h-[100vh]">
       <HeatmapExample />
-      <div className="grid grid-cols-5">
+      <div>
         <Legend
           className="m-10"
           title="Legend Example"
           labels={['Label 1', 'Label 2', 'Label 3']}
           type="line"
-          position="right"
+          position="top"
         />
         <Legend
           className="m-10"

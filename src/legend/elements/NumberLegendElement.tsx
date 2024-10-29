@@ -2,8 +2,8 @@ import { VariantProps } from "class-variance-authority";
 import { legendElementVariants } from "../../Types";
 
 export interface NumberLegendElementProps extends VariantProps<typeof legendElementVariants> {
-  label: string;
-  number: number;
+  label?: string;
+  number?: number;
 }
 
 export const NumberLegendElement: React.FC<NumberLegendElementProps> = ({ label, number, variant }: NumberLegendElementProps) => {
@@ -14,7 +14,7 @@ export const NumberLegendElement: React.FC<NumberLegendElementProps> = ({ label,
           {number}
         </div>
       </span>
-      <span>
+      <span className="whitespace-nowrap">
         {label}
       </span>
     </div>

@@ -52,13 +52,15 @@ export const legendCheckedElementVariants = cva(
   }
 )
 
-export const legendDirectionVariants = cva(
-  '',
+export const legendPositionVariants = cva(
+  'm-[10px]',
   {
     variants: {
-      direction: {
-        vertical: 'flex flex-col',
-        horizontal: 'flex flex-row',
+      position: {
+        top: 'flex flex-row',
+        bottom: 'flex flex-row',
+        right: 'flex flex-col',
+        left: 'flex flex-col',
       }
     }
   }

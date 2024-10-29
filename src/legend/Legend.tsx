@@ -1,13 +1,6 @@
 import { HTMLAttributes } from "react";
-import { SquareLegendElement } from "./elements/SquareLegendElement";
-import { TextLegendElement } from "./elements/TextLegendElement";
-import { RoundLegendElement } from "./elements/RoundLegendElement";
-import { LineLegendElement } from "./elements/LineLegendElement";
-import { NumberLegendElement } from "./elements/NumberLegendElement";
-import { ThresholdLineLegendElement } from "./elements/ThresholdLineLegendElement";
-import { AverageLegendElement } from "./elements/AverageLegendElement";
-import { ThresholdIconLegendElement } from "./elements/ThresholdIconLegendElement";
-import { SquareCheckLegendElement } from "./elements/SquareCheckLegendElement";
+import { LegendElement } from "./elements/LegendElement";
+import { legendPositionVariants } from "../Types";
 
 export type LegendType =
   'average' |
@@ -41,39 +34,28 @@ export const Legend: React.FC<LegendProps> = ({
   title,
   labels,
   type,
+  position,
   threshold,
   average,
-  ...divProps
 }) => {
 
   return (
-    <div {...divProps}>
-      <div>
-        <span>{title}</span>
-      </div>
-      <div>
-        {labels.map((label, index) => {
-          switch (type) {
-            case 'number':
-              return <NumberLegendElement key={index} label={label} number={index+1} variant="instance1" />;
-            case 'text':
-              return <TextLegendElement key={index} label={label} />;
-            case 'round':
-              return <RoundLegendElement key={index} label={label} variant="instance1" />;
-            case 'line':
-              return <LineLegendElement key={index} label={label} variant="instance1" />;
-            case 'square':
-              return <SquareLegendElement key={index} label={label} variant="instance1" />;
-            case 'squareCheck':
-              return <SquareCheckLegendElement key={index} label={label} variant="instance1" checked={index % 2 === 0} />;
-            default:
-              return null;
-          }
-        })}
-        {threshold && threshold === 'icon' && <ThresholdIconLegendElement />}
-        {threshold && threshold === 'line' && <ThresholdLineLegendElement />}
-        {average && <AverageLegendElement />}
-      </div>
+    <div className={legendPositionVariants({ position })}>
+      <span>{title}</span>
+      {labels.map((label, index) => (
+        <LegendElement
+          key={index}
+          type={type}
+          label={label}
+          index={index}
+          variant={`instance${index + 1}`}
+          selected={false}
+          setSelected={() => {}}
+        />
+      ))}
+      {threshold && threshold === 'icon' && <LegendElement type="thresholdIcon" selected={false} setSelected={() => {}} />}
+      {threshold && threshold === 'line' && <LegendElement type="thresholdLine" selected={false} setSelected={() => {}} />}
+      {average && <LegendElement type="average" selected={false} setSelected={() => {}} />}
     </div>
   );
 }

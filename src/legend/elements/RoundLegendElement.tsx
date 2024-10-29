@@ -2,7 +2,7 @@ import { VariantProps } from "class-variance-authority";
 import { legendElementVariants } from "../../Types";
 
 export interface RoundLegendElementProps extends VariantProps<typeof legendElementVariants> {
-  label: string;
+  label?: string;
 }
 
 export const RoundLegendElement: React.FC<RoundLegendElementProps> = ({ label, variant }: RoundLegendElementProps) => {
@@ -11,7 +11,7 @@ export const RoundLegendElement: React.FC<RoundLegendElementProps> = ({ label, v
       <span>
         <div className={legendElementVariants({ variant, appearance: "round" })} />
       </span>
-      <span>
+      <span className="whitespace-nowrap">
         {label}
       </span>
     </div>
