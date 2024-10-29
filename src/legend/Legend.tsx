@@ -1,6 +1,6 @@
 import { HTMLAttributes } from "react";
 import { LegendElement } from "./elements/LegendElement";
-import { legendPositionVariants } from "../Types";
+import { legendElementVariantsVariantDef, legendPositionVariants } from "../Types";
 
 export type LegendType =
   'average' |
@@ -38,7 +38,6 @@ export const Legend: React.FC<LegendProps> = ({
   threshold,
   average,
 }) => {
-
   return (
     <div className={legendPositionVariants({ position })}>
       <span>{title}</span>
@@ -48,7 +47,7 @@ export const Legend: React.FC<LegendProps> = ({
           type={type}
           label={label}
           index={index}
-          variant={`instance${index + 1}`}
+          variant={Object.keys(legendElementVariantsVariantDef)[index] as keyof typeof legendElementVariantsVariantDef}
           selected={false}
           setSelected={() => {}}
         />

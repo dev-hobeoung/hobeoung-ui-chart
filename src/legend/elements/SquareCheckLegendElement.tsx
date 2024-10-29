@@ -1,8 +1,8 @@
 import { VariantProps } from "class-variance-authority";
-import { legendCheckedElementVariants } from "../../Types";
 import CheckboxCheckIcon from "../../assets/ICON_CHECKBOX_CHECK.svg?react"
+import { legendElementVariants } from "../../Types";
 
-export interface SquareCheckLegendElementProps extends VariantProps<typeof legendCheckedElementVariants> {
+export interface SquareCheckLegendElementProps extends VariantProps<typeof legendElementVariants> {
   label?: string;
   selected: boolean;
   setSelected: (selected: boolean) => void;
@@ -24,7 +24,7 @@ export const SquareCheckLegendElement: React.FC<SquareCheckLegendElementProps> =
       <span className="relative flex">
         <input
           id="square-check-legend-element-checkbox"
-          className={legendCheckedElementVariants({ variant })}
+          className={legendElementVariants({ variant, appearance: "check" })}
           type="checkbox"
           checked={selected}
           onChange={e => {
