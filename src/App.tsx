@@ -5,7 +5,7 @@ function App() {
   return (
     <div className="w-[100vw] h-[100vh]">
       <HeatmapExample />
-      <div className="flex">
+      <div className="grid grid-cols-5">
         <Legend
           className="m-10"
           title="Legend Example"
@@ -40,6 +40,31 @@ function App() {
           labels={['Label 1', 'Label 2', 'Label 3']}
           type="square"
           position="right"
+        />
+        <Legend
+          className="m-10"
+          title="Legend Example"
+          labels={['Label 1', 'Label 2', 'Label 3']}
+          type="square"
+          position="right"
+          threshold='line'
+        />
+        <Legend
+          className="m-10"
+          title="Legend Example"
+          labels={['Label 1', 'Label 2', 'Label 3']}
+          type="square"
+          position="right"
+          threshold='icon'
+          average
+        />
+        <Legend
+          className="m-10"
+          title="Legend Example"
+          labels={['Label 1', 'Label 2', 'Label 3']}
+          type="squareCheck"
+          position="right"
+          threshold='icon'
         />
       </div>
     </div>
