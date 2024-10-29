@@ -12,7 +12,7 @@ export const SquareLegendElement: React.FC<SquareLegendElementProps> = ({ label,
       <span>
         <div className={cn(legendElementVariants({ variant, appearance: "square" }))} />
       </span>
-      <span>
+      <span className="whitespace-nowrap">
         {label}
       </span>
     </div>
