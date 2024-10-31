@@ -4,6 +4,7 @@ import { Legend } from "../legend/Legend";
 import { Heatmap } from "../charts/heatmap/HeatMap";
 import { ChartContainerLayout } from "./layout/ChartContainerLayout";
 import { ChartDataType } from "../charts/DataType";
+import { Pie } from "../charts/pie/Pie";
 
 export interface ChartContainerProps extends HTMLAttributes<HTMLDivElement> {
   title: string;
@@ -18,7 +19,13 @@ const ChartContainer = ({ title, children, ...divProps }: ChartContainerProps) =
 
   // 주어진 자식 컴포넌트 중, Chart 컴포넌트 1개를 찾는다.
   React.Children.forEach(children, (child) => {
+    // Chart 컴포넌트가 여러개 있을 경우, 첫번째 컴포넌트만 사용하도록 처리
+    if (chart) return;
+
     if (React.isValidElement(child) && child.type === Heatmap) {
+      chart = child;
+    }
+    else if (React.isValidElement(child) && child.type === Pie) {
       chart = child;
     }
   });
@@ -56,8 +63,23 @@ const ChartContainer = ({ title, children, ...divProps }: ChartContainerProps) =
     legend = React.cloneElement(legend, { labelFilter, setLabelFilter });
   }
 
+  if (chart) {
+
+    /*
+      chart as ReactElement를 넣어준 이유는 위에 undefined로 초기화해서 타입추론을 제대로 못하기 때문,
+      그런데, 로직 상 undefined 상태를 특정 컴포넌트가 지정되지 않음으로 사용중이라 뺄수도 없음.
+    */
+    const filteredData = ((chart as ReactElement).props.data as ChartDataType[]).filter((d) => {
+      // labelFilter가 undefined인 경우 모든 데이터를 표시. 즉, 필터를 적용하지 않음.
+      if (labelFilter === undefined) return true;
+      return labelFilter.includes(d.label);
+    });
+    chart = React.cloneElement(chart, { labels, data: filteredData });
+  }
+
   return (
     <div {...divProps}>
+      {labelFilter}
       <ChartContainerLayout title={title} legend={legend} chart={chart} />
     </div>
   );
@@ -65,5 +87,6 @@ const ChartContainer = ({ title, children, ...divProps }: ChartContainerProps) =
 
 ChartContainer.Legend = Legend;
 ChartContainer.Heatmap = Heatmap;
+ChartContainer.Pie = Pie;
 
 export default ChartContainer;

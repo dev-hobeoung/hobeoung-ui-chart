@@ -1,4 +1,5 @@
 export interface ChartDataType {
-  label?: string;
+  label: string;
   value?: number;
+  color?: string;
 }

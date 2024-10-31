@@ -23,6 +23,10 @@ export const legendElementVariantsVariantDef = {
   instance20: 'bg-[#996c12]',
 }
 
+export const bgClassNameToColor = (bgClassName: string) => {
+  return bgClassName.match(/#([0-9A-Fa-f]{6}|[0-9A-Fa-f]{3})/)?.[0] || "";
+}
+
 export const legendElementVariants = cva(
   'text-[10px] flex justify-center items-center text-[#fff]',
   {
