@@ -13,7 +13,7 @@ import { ThresholdIconLegendElement } from "./ThresholdIconLegendElement";
 import { ThresholdLineLegendElement } from "./ThresholdLineLegendElement";
 
 export interface LegendElementProps extends
-  VariantProps<typeof legendElementVariants>, HTMLAttributes<HTMLDivElement>
+  VariantProps<typeof legendElementVariants>, HTMLAttributes<HTMLButtonElement>
 {
   type: LegendType;
   label?: string;
@@ -32,7 +32,9 @@ export const LegendElement: React.FC<LegendElementProps> = ({
   ...divProps
 }: LegendElementProps) => {
   return (
-    <div className="cursor-pointer"
+    <button
+      type="button"
+      className="cursor-pointer appearance-none"
       onClick={() => {
         if (setSelected) setSelected(!selected);
       }}
@@ -62,6 +64,6 @@ export const LegendElement: React.FC<LegendElementProps> = ({
       {type === 'average' && <AverageLegendElement />}
       {type === 'thresholdIcon' && <ThresholdIconLegendElement />}
       {type === 'thresholdLine' && <ThresholdLineLegendElement />}
-    </div>
+    </button>
   )
 }

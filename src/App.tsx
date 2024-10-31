@@ -1,72 +1,27 @@
-import { HeatmapExample } from './charts/heatmap/HeatMap'
-import { Legend } from './legend/Legend'
+import ChartContainer from './container/ChartContainer'
 
 function App() {
   return (
     <div className="w-[100vw] h-[100vh]">
-      <HeatmapExample />
-      <div>
-        <Legend
+      <ChartContainer title="Chart Container Example">
+        <ChartContainer.Legend
           className="m-10"
           title="Legend Example"
           labels={['Label 1', 'Label 2', 'Label 3']}
-          type="line"
+          type="square"
           position="top"
         />
-        <Legend
-          className="m-10"
-          title="Legend Example"
-          labels={['Label 1', 'Label 2', 'Label 3']}
-          type="text"
-          position="right"
+        <ChartContainer.Heatmap
+          width={600}
+          height={300}
+          numRows={10}
+          numCols={10}
+          data={[[10, 20, 30, 40], [50, 60, 70, 80, 100]]}
+          backgroundColor='#e6e6e6'
+          xAxisLabel='가나다'
+          yAxisLabel='라마바'
         />
-        <Legend
-          className="m-10"
-          title="Legend Example"
-          labels={['Label 1', 'Label 2', 'Label 3']}
-          type="round"
-          position="right"
-        />
-        <Legend
-          className="m-10"
-          title="Legend Example"
-          labels={['Label 1', 'Label 2', 'Label 3']}
-          type="number"
-          position="right"
-        />
-        <Legend
-          className="m-10"
-          title="Legend Example"
-          labels={['Label 1', 'Label 2', 'Label 3']}
-          type="square"
-          position="right"
-        />
-        <Legend
-          className="m-10"
-          title="Legend Example"
-          labels={['Label 1', 'Label 2', 'Label 3']}
-          type="square"
-          position="right"
-          threshold='line'
-        />
-        <Legend
-          className="m-10"
-          title="Legend Example"
-          labels={['Label 1', 'Label 2', 'Label 3']}
-          type="square"
-          position="right"
-          threshold='icon'
-          average
-        />
-        <Legend
-          className="m-10"
-          title="Legend Example"
-          labels={['Label 1', 'Label 2', 'Label 3']}
-          type="squareCheck"
-          position="right"
-          threshold='icon'
-        />
-      </div>
+      </ChartContainer>
     </div>
   )
 }
