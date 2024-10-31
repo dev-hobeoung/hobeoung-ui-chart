@@ -23,11 +23,13 @@ export type LegendPositionType =
 
 export interface LegendProps extends HTMLAttributes<HTMLDivElement> {
   title: string;
-  labels: string[];
+  labels?: string[];
   type: LegendType;
   position: LegendPositionType;
   threshold?: 'line' | 'icon';
   average?: boolean;
+  labelFilter?: string[];
+  setLabelFilter?: (labelFilter: string[] | undefined) => void;
 }
 
 export const Legend: React.FC<LegendProps> = ({
@@ -37,19 +39,25 @@ export const Legend: React.FC<LegendProps> = ({
   position,
   threshold,
   average,
+  labelFilter,
+  setLabelFilter,
 }) => {
   return (
     <div className={legendPositionVariants({ position })}>
       <span>{title}</span>
-      {labels.map((label, index) => (
+      {labels && labels.map((label, index) => (
         <LegendElement
           key={index}
           type={type}
           label={label}
           index={index}
           variant={Object.keys(legendElementVariantsVariantDef)[index] as keyof typeof legendElementVariantsVariantDef}
-          selected={false}
-          setSelected={() => {}}
+          selected={(labelFilter ?? []).includes(label)}
+          setSelected={() => {
+            if (labelFilter && setLabelFilter) {
+              setLabelFilter(labelFilter.includes(label) ? labelFilter.filter((l) => l !== label) : [...labelFilter, label]);
+            }
+          }}
         />
       ))}
       {threshold && threshold === 'icon' && <LegendElement type="thresholdIcon" selected={false} setSelected={() => {}} />}

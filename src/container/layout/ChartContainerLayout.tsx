@@ -4,8 +4,8 @@
 
 export interface ChartContainerLayoutProps {
   title?: string;
-  legend?: React.ReactElement;
-  chart?: React.ReactElement;
+  legend?: React.ReactElement | undefined;
+  chart?: React.ReactElement | undefined;
 }
 
 export const ChartContainerLayout = ({ title, legend, chart }: ChartContainerLayoutProps) => {
