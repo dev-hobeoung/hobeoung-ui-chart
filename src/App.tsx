@@ -10,7 +10,7 @@ function App() {
           title="Legend Example"
           labels={['Label 1', 'Label 2', 'Label 3']}
           type="square"
-          position="top"
+          position="bottom"
         />
         <ChartContainer.Heatmap
           width={600}
@@ -24,22 +24,39 @@ function App() {
         />
       </ChartContainer>
       {/* Pie */}
-      <ChartContainer title="Chart Container Example">
-        <ChartContainer.Legend
-          className="m-10"
-          title="Legend Example"
-          type="square"
-          position="top"
-        />
-        <ChartContainer.Pie
-          data={[
-            { label: 'A', value: 100 },
-            { label: 'B', value: 200 },
-            { label: 'C', value: 300 },
-          ]}
-          isHalf
-        />
-      </ChartContainer>
+      <div className="flex">
+        <ChartContainer title="Chart Container Example">
+          <ChartContainer.Legend
+            className="m-10"
+            title="Legend Example"
+            type="square"
+            position="top"
+          />
+          <ChartContainer.Pie
+            data={[
+              { label: 'A', value: 100 },
+              { label: 'B', value: 200 },
+              { label: 'C', value: 300 },
+            ]}
+            isHalf
+          />
+        </ChartContainer>
+        <ChartContainer title="Chart Container Example">
+          <ChartContainer.Legend
+            className="m-10"
+            title="Legend Example"
+            type="square"
+            position="right"
+          />
+          <ChartContainer.Pie
+            data={[
+              { label: 'A', value: 100 },
+              { label: 'B', value: 20 },
+              { label: 'C', value: 30 },
+            ]}
+          />
+        </ChartContainer>
+      </div>
     </div>
   )
 }

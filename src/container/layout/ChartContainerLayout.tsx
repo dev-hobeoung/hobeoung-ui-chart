@@ -27,6 +27,7 @@ export const ChartContainerLayout = ({ title, legend, chart }: ChartContainerLay
           </div>
         )}
       </div>
+      {/* Center Area */}
       <div className="flex">
         {/* Chart Area */}
         {chart && (
@@ -35,6 +36,14 @@ export const ChartContainerLayout = ({ title, legend, chart }: ChartContainerLay
           </div>
         )}
         {legend && legendPosition === "right" && (
+          <div>
+            {legend}
+          </div>
+        )}
+      </div>
+      {/* Bottom Area */}
+      <div>
+        {legend && legendPosition === "bottom" && (
           <div>
             {legend}
           </div>

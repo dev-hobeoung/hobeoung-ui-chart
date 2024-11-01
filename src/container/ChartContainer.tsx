@@ -79,7 +79,7 @@ const ChartContainer = ({ title, children, ...divProps }: ChartContainerProps) =
 
   return (
     <div {...divProps}>
-      {labelFilter}
+      테스트용 필터 컨텍스트 목록: {labelFilter?.join(", ")}
       <ChartContainerLayout title={title} legend={legend} chart={chart} />
     </div>
   );
