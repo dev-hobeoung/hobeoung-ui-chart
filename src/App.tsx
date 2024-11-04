@@ -42,7 +42,7 @@ function App() {
             className="m-10"
             title="Legend Example"
             type="square"
-            position="top"
+            position="bottom"
           />
           <ChartContainer.Pie
             data={[
@@ -51,7 +51,12 @@ function App() {
               { label: 'C', value: 300 },
             ]}
             isHalf
-          />
+          >
+            <ChartContainer.Pie.Label>
+              <div>테스트1</div>
+              <div>테스트2</div>
+            </ChartContainer.Pie.Label>
+          </ChartContainer.Pie>
         </ChartContainer>
         <ChartContainer title="Chart Container Example">
           <ChartContainer.Legend
@@ -66,13 +71,21 @@ function App() {
               { label: 'B', value: 20 },
               { label: 'C', value: 30 },
             ]}
-          />
+          >
+            <ChartContainer.Pie.Label>
+              테스트
+            </ChartContainer.Pie.Label>
+          </ChartContainer.Pie>
         </ChartContainer>
         <ChartContainer title="Chart Container Example">
           <ChartContainer.PiePercent
             value={100}
             total={300}
-          />
+          >
+            <ChartContainer.PiePercent.Label>
+              테스트asdasdasd
+            </ChartContainer.PiePercent.Label>
+          </ChartContainer.PiePercent>
         </ChartContainer>
       </div>
       {/* Grid */}

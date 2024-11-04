@@ -1,6 +1,6 @@
 import { cva } from "class-variance-authority";
 
-export const legendElementVariantsVariantDef = {
+export const colorVariantDef = {
   instance1: 'bg-[#0a7873]',
   instance2: 'bg-[#2c318c]',
   instance3: 'bg-[#b8630d]',
@@ -27,11 +27,32 @@ export const bgClassNameToColor = (bgClassName: string) => {
   return bgClassName.match(/#([0-9A-Fa-f]{6}|[0-9A-Fa-f]{3})/)?.[0] || "";
 }
 
+export const piePercentVariants = cva(
+  "",
+  {
+    variants: {
+      variant: colorVariantDef
+    },
+  }
+);
+
+export const pieLabelVariants = cva(
+  "absolute transform -translate-x-1/2 -translate-y-1/2",
+  {
+    variants: {
+      appearance: {
+        full: 'top-1/2 left-1/2',
+        half: 'top-[40%] left-1/2',
+      }
+    }
+  }
+);
+
 export const legendElementVariants = cva(
   'text-[10px] flex justify-center items-center text-[#fff]',
   {
     variants: {
-      variant: legendElementVariantsVariantDef,
+      variant: colorVariantDef,
       appearance: {
         square: 'w-[14px] h-[14px] rounded-[2px]',
         round: 'w-[10px] h-[10px] rounded-[50%]',

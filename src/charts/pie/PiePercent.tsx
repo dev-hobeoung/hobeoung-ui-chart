@@ -1,15 +1,31 @@
+import React from "react";
+import { ReactElement, ReactNode } from "react";
 import { PolarAngleAxis, RadialBar, RadialBarChart } from "recharts";
+import { PieLabel } from "./PieLabel";
+import { VariantProps } from "class-variance-authority";
+import { bgClassNameToColor, colorVariantDef, piePercentVariants } from "../../Types";
 
-export interface PiePercentProps {
+export interface PiePercentProps extends VariantProps<typeof piePercentVariants> {
   value: number;
   total: number;
+  children?: ReactNode;
 }
 
 /*
   실제로는 PieChart가 아니라 RadialBarChart를 사용하여 구현하였다.
   실제로 PiePercent는 PieChart에 해당하지도 않고 구현이 가능하지도 않다.
 */
-export const PiePercent: React.FC<PiePercentProps> = ({ value, total }) => {
+const PiePercent = ({ value, total, variant = "instance1", children }: PiePercentProps) => {
+  let pieLabel: ReactElement | undefined = undefined;
+
+  React.Children.forEach(children, (child) => {
+    if (React.isValidElement(child) && child.type === PieLabel) {
+      pieLabel = child;
+      if (pieLabel.props.appearance === undefined) {
+        pieLabel = React.cloneElement(pieLabel, { appearance: "full" });
+      }
+    }
+  });
 
   return (
     <div className="relative w-[400px] h-[400px]">
@@ -22,7 +38,10 @@ export const PiePercent: React.FC<PiePercentProps> = ({ value, total }) => {
         outerRadius="100%"
         barSize={50}
         data={[
-          { name: "percent", value: value * 100 / total, fill: "#0088FE" },
+          {
+            name: "percent", value: value * 100 / total,
+            fill: bgClassNameToColor(colorVariantDef[variant ?? "instance1"])
+          },
         ]}
         startAngle={90}
         endAngle={-270}
@@ -39,11 +58,11 @@ export const PiePercent: React.FC<PiePercentProps> = ({ value, total }) => {
           dataKey="value"
         />
       </RadialBarChart>
-      <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2
-        text-2xl font-bold text-blue-500"
-      >
-        {`${value} / ${total}`}
-      </div>
+      {pieLabel}
     </div>
   )
 }
+
+PiePercent.Label = PieLabel;
+
+export default PiePercent;

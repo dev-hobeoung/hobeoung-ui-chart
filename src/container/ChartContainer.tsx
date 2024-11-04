@@ -4,10 +4,10 @@ import { Legend } from "../legend/Legend";
 import { Heatmap } from "../charts/heatmap/HeatMap";
 import { ChartContainerLayout } from "./layout/ChartContainerLayout";
 import { ChartDataType } from "../charts/DataType";
-import { Pie } from "../charts/pie/Pie";
 import { Grid } from "../charts/grid/Grid";
 import { GridOver } from "../charts/grid/GridOver";
-import { PiePercent } from "../charts/pie/PiePercent";
+import Pie from "../charts/pie/Pie";
+import PiePercent from "../charts/pie/PiePercent";
 
 export interface ChartContainerProps extends HTMLAttributes<HTMLDivElement> {
   title: string;
@@ -102,7 +102,6 @@ const ChartContainer = ({ title, children, ...divProps }: ChartContainerProps) =
 
   return (
     <div {...divProps}>
-      {useFilter && <div>테스트용 필터 컨텍스트 목록: {labelFilter?.join(", ")}</div>}
       <ChartContainerLayout title={title} legend={legend} chart={chart} />
     </div>
   );

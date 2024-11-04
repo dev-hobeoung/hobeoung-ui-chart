@@ -1,6 +1,6 @@
 import { HTMLAttributes } from "react";
 import { LegendElement } from "./elements/LegendElement";
-import { legendElementVariantsVariantDef, legendPositionVariants } from "../Types";
+import { colorVariantDef, legendPositionVariants } from "../Types";
 
 export type LegendType =
   'average' |
@@ -51,7 +51,7 @@ export const Legend: React.FC<LegendProps> = ({
           type={type}
           label={label}
           index={index}
-          variant={Object.keys(legendElementVariantsVariantDef)[index] as keyof typeof legendElementVariantsVariantDef}
+          variant={Object.keys(colorVariantDef)[index] as keyof typeof colorVariantDef}
           selected={(labelFilter ?? []).includes(label)}
           setSelected={() => {
             if (labelFilter && setLabelFilter) {

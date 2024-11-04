@@ -2,7 +2,7 @@
 import React from "react";
 import { ChartDataType } from "../DataType";
 import { cn } from "../../utils/StyleUtils";
-import { legendElementVariants, legendElementVariantsVariantDef } from "../../Types";
+import { legendElementVariants, colorVariantDef } from "../../Types";
 
 export interface GridDataType extends ChartDataType {}
 
@@ -26,7 +26,7 @@ export const Grid: React.FC<GridProps> = ({ labels = [], data, labelHeader, valu
       <tbody>
         {data.map(d => {
           const labelIndex = labels.indexOf(d.label);
-          const variant = Object.keys(legendElementVariantsVariantDef)[labelIndex] as keyof typeof legendElementVariantsVariantDef;
+          const variant = Object.keys(colorVariantDef)[labelIndex] as keyof typeof colorVariantDef;
           return (
             <tr key={d.label}>
               <td className="flex items-center gap-[10px]">
