@@ -8,7 +8,6 @@ function App() {
         <ChartContainer.Legend
           className="m-10"
           title="Legend Example"
-          labels={['Label 1', 'Label 2', 'Label 3']}
           type="square"
           position="bottom"
         />
@@ -17,7 +16,20 @@ function App() {
           height={300}
           numRows={10}
           numCols={10}
-          data={[[10, 20, 30, 40], [50, 60, 70, 80, 100]]}
+          data={[
+            { label: 'test', value: 100, x: 1, y: 1 },
+            { label: 'test', value: 200, x: 2, y: 1 },
+            { label: 'test', value: 300, x: 1, y: 3 },
+            { label: 'test', value: 400, x: 4, y: 1 },
+            { label: 'test', value: 500, x: 1, y: 1 },
+            { label: 'test1', value: 300, x: 1, y: 3 },
+            { label: 'test1', value: 400, x: 4, y: 1 },
+            { label: 'test1', value: 500, x: 1, y: 1 },
+            { label: 'test2', value: 200, x: 2, y: 3 },
+            { label: 'test2', value: 300, x: 4, y: 3 },
+            { label: 'test2', value: 400, x: 4, y: 5 },
+            { label: 'test2', value: 500, x: 8, y: 9 },
+          ]}
           backgroundColor='#e6e6e6'
           xAxisLabel='가나다'
           yAxisLabel='라마바'
@@ -54,6 +66,23 @@ function App() {
               { label: 'B', value: 20 },
               { label: 'C', value: 30 },
             ]}
+          />
+        </ChartContainer>
+      </div>
+      {/* Grid */}
+      <div className="flex">
+        <ChartContainer title="Chart Container Example">
+          <ChartContainer.Grid
+            data={[
+              { label: 'A', value: 100 },
+              { label: 'B', value: 200 },
+              { label: 'C', value: 300 },
+            ]}
+          />
+        </ChartContainer>
+        <ChartContainer title="Chart Container Example">
+          <ChartContainer.GridOver
+            data={[1,2,3,4,10,23,43,45,45,56]}
           />
         </ChartContainer>
       </div>

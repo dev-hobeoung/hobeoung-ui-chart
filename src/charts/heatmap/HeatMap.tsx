@@ -1,11 +1,17 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useRef, useEffect } from 'react';
 import * as d3 from 'd3';
+import { ChartDataType } from '../DataType';
+
+export interface HeatMapDataType extends ChartDataType {
+  x: number;
+  y: number;
+}
 
 export interface HeatMapProps {
   numRows: number;
   numCols: number;
-  data: number[][];
+  data: HeatMapDataType[];
   backgroundColor?: string;
   width?: number;
   height?: number;
@@ -24,21 +30,6 @@ export interface HeatMapProps {
   scaleColor?: string[];
 }
 
-export const HeatmapExample: React.FC = () => {
-  return (
-    <Heatmap
-      width={600}
-      height={300}
-      numRows={10}
-      numCols={10}
-      data={[[10, 20, 30, 40], [50, 60, 70, 80, 100]]}
-      backgroundColor='#e6e6e6'
-      xAxisLabel='가나다'
-      yAxisLabel='라마바'
-    />
-  );
-}
-
 export const Heatmap: React.FC<HeatMapProps> = ({
   numRows,
   numCols,
@@ -51,10 +42,38 @@ export const Heatmap: React.FC<HeatMapProps> = ({
   xAxisLabelStyle,
   yAxisLabelStyle,
   margin = { top: 30, right: 30, bottom: 80, left: 80 },
-  scaleRange = [0, 100],
+  scaleRange,
   scaleColor = ['#ffffff', '#ff0000'],
 }) => {
   const svgRef = useRef<SVGSVGElement | null>(null);
+
+  // Data의 x, y 값을 기반으로 Heatmap의 x, y축 범위를 산출
+  const xValues = data.map(d => d.x);
+  const xMaxValue = Math.max(...xValues);
+  const xInterval = Math.pow(10, Math.floor(Math.log10(xMaxValue / numCols)) + 1);
+
+  const yValues = data.map(d => d.y);
+  const yMaxValue = Math.max(...yValues);
+  const yInterval = Math.pow(10, Math.floor(Math.log10(yMaxValue / numRows)) + 1);
+
+  // 주어진 데이터를 기반으로 Heatmap에 실제 그려지는 이중배열 데이터를 생성
+  const gridData: number[][] = Array.from({ length: numRows }, () => Array(numCols).fill(0));
+  data.forEach(d => {
+    const xPosition = Math.floor(d.x / xInterval) - 1;
+    const yPosition = Math.floor(d.y / yInterval) - 1;
+
+    if (d.value) {
+      gridData[yPosition][xPosition] = gridData[yPosition][xPosition] + d.value;
+    }
+  });
+
+  // 데이터의 value를 기반으로 scaleRange 산정
+  if (!scaleRange) {
+    const maxDataValue = Math.max(...gridData.flat());
+    // ScaleRange Auto는 자동으로 GridData의 최댓값을 감지함. 이게 싫으면 ScaleRange를 직접 설정하면됨.
+    // 최대값이 0인 경우, 1로 설정하여 0인 값임을 정확히 명시함. 그렇지 않으면 Max로 인지되 모두 0인데 색이 깔림.
+    scaleRange = [0, maxDataValue === 0 ? 1 : maxDataValue];
+  }
 
   useEffect(() => {
     if (!svgRef.current) return;
@@ -100,7 +119,7 @@ export const Heatmap: React.FC<HeatMapProps> = ({
       .attr('fill', backgroundColor ?? '#ffffff');
 
     // Create heatmap cells with text
-    const flatData = data.flat();
+    const flatData = gridData.flat();
     const heatmapData = flatData.map((value, index) => ({
       row: Math.floor(index / numCols),
       col: index % numCols,
