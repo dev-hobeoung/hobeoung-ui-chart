@@ -68,6 +68,12 @@ function App() {
             ]}
           />
         </ChartContainer>
+        <ChartContainer title="Chart Container Example">
+          <ChartContainer.PiePercent
+            value={100}
+            total={300}
+          />
+        </ChartContainer>
       </div>
       {/* Grid */}
       <div className="flex">

@@ -7,6 +7,7 @@ import { ChartDataType } from "../charts/DataType";
 import { Pie } from "../charts/pie/Pie";
 import { Grid } from "../charts/grid/Grid";
 import { GridOver } from "../charts/grid/GridOver";
+import { PiePercent } from "../charts/pie/PiePercent";
 
 export interface ChartContainerProps extends HTMLAttributes<HTMLDivElement> {
   title: string;
@@ -32,6 +33,11 @@ const ChartContainer = ({ title, children, ...divProps }: ChartContainerProps) =
     }
     else if (React.isValidElement(child) && child.type === Pie) {
       chart = child;
+    }
+    else if (React.isValidElement(child) && child.type === PiePercent) {
+      chart = child;
+      useLegend = false;
+      useFilter = false;
     }
     else if (React.isValidElement(child) && child.type === Grid) {
       chart = child;
@@ -105,6 +111,7 @@ const ChartContainer = ({ title, children, ...divProps }: ChartContainerProps) =
 ChartContainer.Legend = Legend;
 ChartContainer.Heatmap = Heatmap;
 ChartContainer.Pie = Pie;
+ChartContainer.PiePercent = PiePercent;
 ChartContainer.Grid = Grid;
 ChartContainer.GridOver = GridOver;
 
