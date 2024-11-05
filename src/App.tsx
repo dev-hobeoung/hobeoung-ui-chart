@@ -13,7 +13,7 @@ function App() {
         />
         <ChartContainer.Heatmap
           width={600}
-          height={300}
+          height={400}
           numRows={10}
           numCols={10}
           data={[
@@ -30,9 +30,9 @@ function App() {
             { label: 'test2', value: 400, x: 4, y: 5 },
             { label: 'test2', value: 500, x: 8, y: 9 },
           ]}
-          backgroundColor='#e6e6e6'
           xAxisLabel='가나다'
           yAxisLabel='라마바'
+          variant={"instance12"}
         />
       </ChartContainer>
       {/* Pie */}
@@ -62,7 +62,7 @@ function App() {
           <ChartContainer.Legend
             className="m-10"
             title="Legend Example"
-            type="square"
+            type="number"
             position="right"
           />
           <ChartContainer.Pie

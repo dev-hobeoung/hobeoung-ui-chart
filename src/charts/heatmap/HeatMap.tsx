@@ -2,17 +2,18 @@
 import React, { useRef, useEffect } from 'react';
 import * as d3 from 'd3';
 import { ChartDataType } from '../DataType';
+import { VariantProps } from 'class-variance-authority';
+import { bgClassNameToColor, colorVariantDef, heatmapVariants } from '../../Types';
 
 export interface HeatMapDataType extends ChartDataType {
   x: number;
   y: number;
 }
 
-export interface HeatMapProps {
+export interface HeatMapProps extends VariantProps<typeof heatmapVariants> {
   numRows: number;
   numCols: number;
   data: HeatMapDataType[];
-  backgroundColor?: string;
   width?: number;
   height?: number;
   xAxisLabel?: string;
@@ -34,7 +35,6 @@ export const Heatmap: React.FC<HeatMapProps> = ({
   numRows,
   numCols,
   data,
-  backgroundColor,
   width = 600,
   height = 600,
   xAxisLabel,
@@ -43,7 +43,7 @@ export const Heatmap: React.FC<HeatMapProps> = ({
   yAxisLabelStyle,
   margin = { top: 30, right: 30, bottom: 80, left: 80 },
   scaleRange,
-  scaleColor = ['#ffffff', '#ff0000'],
+  variant,
 }) => {
   const svgRef = useRef<SVGSVGElement | null>(null);
 
@@ -103,7 +103,8 @@ export const Heatmap: React.FC<HeatMapProps> = ({
       .range([chartHeight, 0]);
 
     // Color scale
-    const colorScale = d3.scaleLinear(scaleRange, scaleColor)
+    const maxColor = bgClassNameToColor(colorVariantDef[variant ?? "instance1"]);
+    const colorScale = d3.scaleLinear(scaleRange, ["#f1f3f4", maxColor]);
 
     // Create SVG
     const svg = d3.select(svgRef.current)
@@ -116,7 +117,7 @@ export const Heatmap: React.FC<HeatMapProps> = ({
     svg.append('rect')
       .attr('width', chartWidth)
       .attr('height', chartHeight)
-      .attr('fill', backgroundColor ?? '#ffffff');
+      .attr('fill', '#ffffff');
 
     // Create heatmap cells with text
     const flatData = gridData.flat();
@@ -164,7 +165,8 @@ export const Heatmap: React.FC<HeatMapProps> = ({
       .attr('y', d => yScaleBand(d.row.toString())! + yScaleBand.bandwidth() / 2)
       .attr('dy', '.35em') // Vertical alignment
       .attr('text-anchor', 'middle') // Horizontal alignment
-      .attr('fill', 'white') // Text color
+      .attr('fill', '#000000') // Text color
+      .attr('font-size', '10px') // Font size
       .text(d => Math.round(d.value)) // Display rounded value
       .on('mouseover', function () {
         tooltip.style('visibility', 'visible');
@@ -179,24 +181,16 @@ export const Heatmap: React.FC<HeatMapProps> = ({
         tooltip.style('visibility', 'hidden');
       });
 
-    // Draw X axis with ticks
+    // X, Y축의 Tick을 그린다.
     svg.append('g')
       .attr('transform', `translate(0,${chartHeight})`)
-      .call(d3.axisBottom(xScaleLinear).tickSize(10).tickPadding(10))
-      .select('.domain')  // 도메인 라인 선택
-      .remove();  // 도메인 라인 제거
+      .call(d3.axisBottom(xScaleLinear).tickSize(10).tickPadding(10));
+    svg.append('g').call(d3.axisLeft(yScaleLinear).tickSize(10).tickPadding(10));
 
-    svg.selectAll('g.axis-bottom g.tick line')  // 틱 라인 스타일 적용
-      .attr('stroke', 'lightgray');
-
-    // Draw Y axis with ticks
-    svg.append('g')
-      .call(d3.axisLeft(yScaleLinear).tickSize(10).tickPadding(10))
-      .select('.domain')  // 도메인 라인 선택
-      .remove();  // 도메인 라인 제거
-
-    svg.selectAll('g.axis-left g.tick line')  // 틱 라인 스타일 적용
-      .attr('stroke', 'lightgray');
+    // Tick 스타일링
+    svg.selectAll('.tick text').attr('fill', '#5f6368').style('font-size', '12px')
+    svg.selectAll('.tick line').attr('stroke', '#dadce0');
+    svg.selectAll('.domain').remove();
 
     // X axis label
     if (xAxisLabel) {

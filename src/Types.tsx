@@ -27,6 +27,15 @@ export const bgClassNameToColor = (bgClassName: string) => {
   return bgClassName.match(/#([0-9A-Fa-f]{6}|[0-9A-Fa-f]{3})/)?.[0] || "";
 }
 
+export const heatmapVariants = cva(
+  "",
+  {
+    variants: {
+      variant: colorVariantDef
+    },
+  }
+)
+
 export const piePercentVariants = cva(
   "",
   {

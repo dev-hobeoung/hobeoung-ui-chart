@@ -44,7 +44,7 @@ export const LegendElement: React.FC<LegendElementProps> = ({
       {type === 'number' && (
         <NumberLegendElement
           label={label}
-          number={index ? index + 1 : undefined}
+          number={index != undefined ? index + 1 : undefined}
           variant={variant}
           appearance="square"
         />
