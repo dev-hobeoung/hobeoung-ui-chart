@@ -12,7 +12,7 @@ export const ChartContainerLayout = ({ title, legend, chart }: ChartContainerLay
   const legendPosition = legend?.props.position;
 
   return (
-    <div className="bg-[#456624] w-fit h-fit m-10">
+    <div className="w-fit h-fit m-5">
       {/* Top Area */}
       <div>
         {/* Title Area */}
@@ -22,7 +22,7 @@ export const ChartContainerLayout = ({ title, legend, chart }: ChartContainerLay
           </div>
         )}
         {legend && legendPosition === "top" && (
-          <div>
+          <div className="flex justify-center items-center">
             {legend}
           </div>
         )}
@@ -36,7 +36,7 @@ export const ChartContainerLayout = ({ title, legend, chart }: ChartContainerLay
           </div>
         )}
         {legend && legendPosition === "right" && (
-          <div>
+          <div className="flex justify-center items-center">
             {legend}
           </div>
         )}
@@ -44,7 +44,7 @@ export const ChartContainerLayout = ({ title, legend, chart }: ChartContainerLay
       {/* Bottom Area */}
       <div>
         {legend && legendPosition === "bottom" && (
-          <div>
+          <div className="flex justify-center items-center">
             {legend}
           </div>
         )}
