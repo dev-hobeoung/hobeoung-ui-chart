@@ -102,6 +102,7 @@ function App() {
         <ChartContainer title="Chart Container Example">
           <ChartContainer.GridOver
             data={[1,2,3,4,10,23,43,45,45,56]}
+            useSort
           />
         </ChartContainer>
       </div>

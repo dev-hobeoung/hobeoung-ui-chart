@@ -6,14 +6,14 @@
   추가로, GridOver는 특성상 Legend를 사용할 케이스가 없는 것으로 판단함.
 */
 
-import { Grid, GridDataType } from "./Grid";
+import { Grid, GridDataType, GridSortProps } from "./Grid";
 
-export interface GridOverProps {
+export interface GridOverProps extends GridSortProps {
   data: number[];
   overRanges?: number[];
 }
 
-export const GridOver: React.FC<GridOverProps> = ({ data, overRanges }) => {
+export const GridOver: React.FC<GridOverProps> = ({ data, overRanges, useSort, compare }) => {
   const labels: string[] = [];
   const gridData: GridDataType[] = [];
 
@@ -43,6 +43,8 @@ export const GridOver: React.FC<GridOverProps> = ({ data, overRanges }) => {
       data={gridData}
       labelHeader="Over"
       valueHeader="Value"
+      useSort={useSort}
+      compare={compare}
     />
   );
 }
