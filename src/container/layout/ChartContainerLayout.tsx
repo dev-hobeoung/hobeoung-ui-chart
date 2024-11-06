@@ -12,12 +12,12 @@ export const ChartContainerLayout = ({ title, legend, chart }: ChartContainerLay
   const legendPosition = legend?.props.position;
 
   return (
-    <div>
+    <div className="bg-[#456624] w-fit h-fit m-10">
       {/* Top Area */}
       <div>
         {/* Title Area */}
         {title && (
-          <div>
+          <div className="flex justify-center items-center">
             <span>{title}</span>
           </div>
         )}

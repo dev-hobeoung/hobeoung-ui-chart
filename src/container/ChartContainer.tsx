@@ -108,6 +108,7 @@ const ChartContainer = ({ title, children, ...divProps }: ChartContainerProps) =
 };
 
 ChartContainer.Legend = Legend;
+
 ChartContainer.Heatmap = Heatmap;
 ChartContainer.Pie = Pie;
 ChartContainer.PiePercent = PiePercent;

@@ -221,5 +221,5 @@ export const Heatmap: React.FC<HeatMapProps> = ({
     };
   }, [numRows, numCols, data]);
 
-  return <svg ref={svgRef}></svg>;
+  return <svg ref={svgRef} />;
 };
